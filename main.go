@@ -64,15 +64,12 @@ func main() {
 			HoujinDissolvedAt:  h.GetHoujinDissolvedAt(),
 			HoujinCapital:      h.GetHoujinCapital(),
 		}
-		// jsonを返す
 		w.Header().Set("Content-Type", "application/json")
 		if err := json.NewEncoder(w).Encode(houjin); err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
 		}
-		// curl -X POST -H "Content-Type: application/pdf" --data-binary "@sample.pdf" https://go-worker.a2sin2a2ko1115.workers.dev/parse
-		//  http://localhost:8787
-		// curl -X POST -H "Content-Type: application/pdf" --data-binary "@sample.pdf"  http://localhost:8787/parse
+
 	})
 	workers.Serve(nil) // use http.DefaultServeMux
 }
