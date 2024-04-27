@@ -2,8 +2,10 @@ package main
 
 import (
 	"bytes"
+	"encoding/json"
 	"io"
 	"net/http"
+	"time"
 
 	"github.com/syumai/workers"
 	"github.com/tychy/toukibo-parser/pdf"
@@ -25,6 +27,16 @@ func readPdf(data []byte) (string, error) {
 	return buf.String(), nil
 }
 
+type Houjin struct {
+	ToukiboCreatedAt   time.Time `json:"toukibo_created_at"`
+	HoujinName         string    `json:"houjin_name"`
+	HoujinKaku         string    `json:"houjin_kaku"`
+	HoujinAddress      string    `json:"houjin_address"`
+	HoujinBankruptedAt string    `json:"houjin_bankrupted_at"`
+	HoujinDissolvedAt  string    `json:"houjin_dissolved_at"`
+	HoujinCapital      int       `json:"houjin_capital"`
+}
+
 func main() {
 	http.HandleFunc("/hello", func(w http.ResponseWriter, req *http.Request) {
 		msg := "Hello!"
@@ -43,11 +55,21 @@ func main() {
 		if err != nil {
 			panic(err)
 		}
-		kaku := h.GetHoujinKaku()
-		if err != nil {
-			panic(err)
+		houjin := &Houjin{
+			ToukiboCreatedAt:   h.GetToukiboCreatedAt(),
+			HoujinName:         h.GetHoujinName(),
+			HoujinKaku:         h.GetHoujinKaku(),
+			HoujinAddress:      h.GetHoujinAddress(),
+			HoujinBankruptedAt: h.GetHoujinBankruptedAt(),
+			HoujinDissolvedAt:  h.GetHoujinDissolvedAt(),
+			HoujinCapital:      h.GetHoujinCapital(),
 		}
-		io.Copy(w, bytes.NewReader([]byte(kaku)))
+		// jsonを返す
+		w.Header().Set("Content-Type", "application/json")
+		if err := json.NewEncoder(w).Encode(houjin); err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
 		// curl -X POST -H "Content-Type: application/pdf" --data-binary "@sample.pdf" https://go-worker.a2sin2a2ko1115.workers.dev/parse
 		//  http://localhost:8787
 		// curl -X POST -H "Content-Type: application/pdf" --data-binary "@sample.pdf"  http://localhost:8787/parse
