@@ -32,9 +32,10 @@ type Houjin struct {
 	HoujinName         string    `json:"houjin_name"`
 	HoujinKaku         string    `json:"houjin_kaku"`
 	HoujinAddress      string    `json:"houjin_address"`
+	HoujinCapital      int       `json:"houjin_capital"`
 	HoujinBankruptedAt string    `json:"houjin_bankrupted_at"`
 	HoujinDissolvedAt  string    `json:"houjin_dissolved_at"`
-	HoujinCapital      int       `json:"houjin_capital"`
+	HoujinContinuedAt  string    `json:"houjin_continued_at"`
 }
 
 func main() {
@@ -60,9 +61,10 @@ func main() {
 			HoujinName:         h.GetHoujinName(),
 			HoujinKaku:         h.GetHoujinKaku(),
 			HoujinAddress:      h.GetHoujinAddress(),
+			HoujinCapital:      h.GetHoujinCapital(),
 			HoujinBankruptedAt: h.GetHoujinBankruptedAt(),
 			HoujinDissolvedAt:  h.GetHoujinDissolvedAt(),
-			HoujinCapital:      h.GetHoujinCapital(),
+			HoujinContinuedAt:  h.GetHoujinContinuedAt(),
 		}
 		w.Header().Set("Content-Type", "application/json")
 		if err := json.NewEncoder(w).Encode(houjin); err != nil {
