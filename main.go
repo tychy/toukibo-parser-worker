@@ -28,8 +28,8 @@ func readPdf(data []byte) (string, error) {
 }
 
 type HoujinExecutive struct {
-	Name     string `json:"Name"`
-	Position string `json:"Position"`
+	Name     string `json:"氏名"`
+	Position string `json:"役職"`
 }
 
 type Houjin struct {
