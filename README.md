@@ -1,4 +1,9 @@
 # toukibo-parser-worker
+[商業登記簿パーサー](https://github.com/tychy/toukibo-parser)を組み込んだAPI
+
+商業登記簿PDFをPostすると、解析結果を返します。
+
+[デモページ](https://toukibo-parser-demo.tychy.jp/?index)で試すことができます。
 
 ## Development
 ### Commands
