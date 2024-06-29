@@ -27,17 +27,23 @@ func readPdf(data []byte) (string, error) {
 	return buf.String(), nil
 }
 
+type HoujinExecutive struct {
+	Name     string `json:"Name"`
+	Position string `json:"Position"`
+}
+
 type Houjin struct {
-	ToukiboCreatedAt      time.Time `json:"登記簿作成時刻"`
-	HoujinName            string    `json:"法人名"`
-	HoujinKaku            string    `json:"法人格"`
-	HoujinAddress         string    `json:"住所"`
-	HoujinCapital         int       `json:"資本金"`
-	HoujinRepresentatives []string  `json:"代表者"`
-	HoujinExectives       []string  `json:"役員"`
-	HoujinBankruptedAt    string    `json:"破産日"`
-	HoujinDissolvedAt     string    `json:"解散日"`
-	HoujinContinuedAt     string    `json:"会社継続日"`
+	ToukiboCreatedAt      time.Time         `json:"登記簿作成時刻"`
+	HoujinName            string            `json:"法人名"`
+	HoujinKaku            string            `json:"法人格"`
+	HoujinAddress         string            `json:"住所"`
+	HoujinCapital         int               `json:"資本金"`
+	HoujinExecutives      []HoujinExecutive `json:"役員"`
+	HoujinExecutiveNames  []string          `json:"役員氏名"`
+	HoujinRepresentatives []string          `json:"代表者氏名"`
+	HoujinBankruptedAt    string            `json:"破産日"`
+	HoujinDissolvedAt     string            `json:"解散日"`
+	HoujinContinuedAt     string            `json:"会社継続日"`
 }
 
 func main() {
@@ -58,13 +64,25 @@ func main() {
 		if err != nil {
 			panic(err)
 		}
-		representatives, err := h.GetHoujinRepresentativeNames()
+		representativeNames, err := h.GetHoujinRepresentativeNames()
 		if err != nil {
 			panic(err)
 		}
-		exectives, err := h.ListHoujinExecutives()
+		exectiveNames, err := h.GetHoujinExecutiveNames()
 		if err != nil {
 			panic(err)
+		}
+
+		exectives, err := h.GetHoujinExecutives()
+		if err != nil {
+			panic(err)
+		}
+		var houjinExecutives []HoujinExecutive
+		for _, e := range exectives {
+			houjinExecutives = append(houjinExecutives, HoujinExecutive{
+				Name:     e.Name,
+				Position: e.Position,
+			})
 		}
 
 		houjin := &Houjin{
@@ -73,8 +91,9 @@ func main() {
 			HoujinKaku:            h.GetHoujinKaku(),
 			HoujinAddress:         h.GetHoujinAddress(),
 			HoujinCapital:         h.GetHoujinCapital(),
-			HoujinRepresentatives: representatives,
-			HoujinExectives:       exectives,
+			HoujinExecutives:      houjinExecutives,
+			HoujinExecutiveNames:  exectiveNames,
+			HoujinRepresentatives: representativeNames,
 			HoujinBankruptedAt:    h.GetHoujinBankruptedAt(),
 			HoujinDissolvedAt:     h.GetHoujinDissolvedAt(),
 			HoujinContinuedAt:     h.GetHoujinContinuedAt(),

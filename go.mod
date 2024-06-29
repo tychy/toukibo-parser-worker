@@ -6,4 +6,4 @@ toolchain go1.22.1
 
 require github.com/syumai/workers v0.26.0
 
-require github.com/tychy/toukibo-parser v1.0.14
+require github.com/tychy/toukibo-parser v1.0.17
