@@ -28,14 +28,16 @@ func readPdf(data []byte) (string, error) {
 }
 
 type Houjin struct {
-	ToukiboCreatedAt   time.Time `json:"toukibo_created_at"`
-	HoujinName         string    `json:"houjin_name"`
-	HoujinKaku         string    `json:"houjin_kaku"`
-	HoujinAddress      string    `json:"houjin_address"`
-	HoujinCapital      int       `json:"houjin_capital"`
-	HoujinBankruptedAt string    `json:"houjin_bankrupted_at"`
-	HoujinDissolvedAt  string    `json:"houjin_dissolved_at"`
-	HoujinContinuedAt  string    `json:"houjin_continued_at"`
+	ToukiboCreatedAt      time.Time `json:"登記簿作成時刻"`
+	HoujinName            string    `json:"法人名"`
+	HoujinKaku            string    `json:"法人格"`
+	HoujinAddress         string    `json:"住所"`
+	HoujinCapital         int       `json:"資本金"`
+	HoujinRepresentatives []string  `json:"代表者"`
+	HoujinExectives       []string  `json:"役員"`
+	HoujinBankruptedAt    string    `json:"破産日"`
+	HoujinDissolvedAt     string    `json:"解散日"`
+	HoujinContinuedAt     string    `json:"会社継続日"`
 }
 
 func main() {
@@ -56,15 +58,26 @@ func main() {
 		if err != nil {
 			panic(err)
 		}
+		representatives, err := h.GetHoujinRepresentativeNames()
+		if err != nil {
+			panic(err)
+		}
+		exectives, err := h.ListHoujinExecutives()
+		if err != nil {
+			panic(err)
+		}
+
 		houjin := &Houjin{
-			ToukiboCreatedAt:   h.GetToukiboCreatedAt(),
-			HoujinName:         h.GetHoujinName(),
-			HoujinKaku:         h.GetHoujinKaku(),
-			HoujinAddress:      h.GetHoujinAddress(),
-			HoujinCapital:      h.GetHoujinCapital(),
-			HoujinBankruptedAt: h.GetHoujinBankruptedAt(),
-			HoujinDissolvedAt:  h.GetHoujinDissolvedAt(),
-			HoujinContinuedAt:  h.GetHoujinContinuedAt(),
+			ToukiboCreatedAt:      h.GetToukiboCreatedAt(),
+			HoujinName:            h.GetHoujinName(),
+			HoujinKaku:            h.GetHoujinKaku(),
+			HoujinAddress:         h.GetHoujinAddress(),
+			HoujinCapital:         h.GetHoujinCapital(),
+			HoujinRepresentatives: representatives,
+			HoujinExectives:       exectives,
+			HoujinBankruptedAt:    h.GetHoujinBankruptedAt(),
+			HoujinDissolvedAt:     h.GetHoujinDissolvedAt(),
+			HoujinContinuedAt:     h.GetHoujinContinuedAt(),
 		}
 		w.Header().Set("Content-Type", "application/json")
 		if err := json.NewEncoder(w).Encode(houjin); err != nil {
