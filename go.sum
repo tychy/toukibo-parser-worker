@@ -1,4 +1,4 @@
-github.com/syumai/workers v0.26.2 h1:PYfBMGzH780puODL4o7g8aB7pRqwfM245SBUiic8zsE=
-github.com/syumai/workers v0.26.2/go.mod h1:ZnqmdiHNBrbxOLrZ/HJ5jzHy6af9cmiNZk10R9NrIEA=
-github.com/tychy/toukibo-parser v1.0.22 h1:5+nTHO9yQls8pWXf78DMuY8HRNZOfGmJME+JRLIWPLg=
-github.com/tychy/toukibo-parser v1.0.22/go.mod h1:4m2kWl6UGW2sIouaR7x6xE1SqQaPCEqv2A52sH86Wfg=
+github.com/syumai/workers v0.26.3 h1:AF+IBaRccbR4JIj2kNJLJblruPFMD/pAbzkopejGcP8=
+github.com/syumai/workers v0.26.3/go.mod h1:ZnqmdiHNBrbxOLrZ/HJ5jzHy6af9cmiNZk10R9NrIEA=
+github.com/tychy/toukibo-parser v1.0.23 h1:t72Vjw4tfBlymTlzGU0fO7jH+tYWmtgGwWD3CnXDVHM=
+github.com/tychy/toukibo-parser v1.0.23/go.mod h1:4m2kWl6UGW2sIouaR7x6xE1SqQaPCEqv2A52sH86Wfg=
