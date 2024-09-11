@@ -38,6 +38,7 @@ type Houjin struct {
 	HoujinKaku            string            `json:"法人格"`
 	HoujinAddress         string            `json:"住所"`
 	HoujinCapital         int               `json:"資本金"`
+	HoujinStock           int               `json:"発行済み株式数"`
 	HoujinExecutives      []HoujinExecutive `json:"役員"`
 	HoujinExecutiveNames  []string          `json:"役員氏名"`
 	HoujinRepresentatives []string          `json:"代表者氏名"`
@@ -91,6 +92,7 @@ func main() {
 			HoujinKaku:            h.GetHoujinKaku(),
 			HoujinAddress:         h.GetHoujinAddress(),
 			HoujinCapital:         h.GetHoujinCapital(),
+			HoujinStock:           h.GetHoujinStock(),
 			HoujinExecutives:      houjinExecutives,
 			HoujinExecutiveNames:  exectiveNames,
 			HoujinRepresentatives: representativeNames,
