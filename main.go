@@ -32,19 +32,25 @@ type HoujinExecutive struct {
 	Position string `json:"役職"`
 }
 
+type HoujinPreferredStock struct {
+	Type   string `yaml:"Type"`
+	Amount int    `yaml:"Amount"`
+}
+
 type Houjin struct {
-	ToukiboCreatedAt      time.Time         `json:"登記簿作成時刻"`
-	HoujinName            string            `json:"法人名"`
-	HoujinKaku            string            `json:"法人格"`
-	HoujinAddress         string            `json:"住所"`
-	HoujinCapital         int               `json:"資本金"`
-	HoujinStock           int               `json:"発行済み株式数"`
-	HoujinExecutives      []HoujinExecutive `json:"役員"`
-	HoujinExecutiveNames  []string          `json:"役員氏名"`
-	HoujinRepresentatives []string          `json:"代表者氏名"`
-	HoujinBankruptedAt    string            `json:"破産日"`
-	HoujinDissolvedAt     string            `json:"解散日"`
-	HoujinContinuedAt     string            `json:"会社継続日"`
+	ToukiboCreatedAt      time.Time              `json:"登記簿作成時刻"`
+	HoujinName            string                 `json:"法人名"`
+	HoujinKaku            string                 `json:"法人格"`
+	HoujinAddress         string                 `json:"住所"`
+	HoujinCapital         int                    `json:"資本金"`
+	HoujinStock           int                    `json:"発行済み株式数"`
+	HoujinPreferredStock  []HoujinPreferredStock `json:"発行済み株式の内訳"`
+	HoujinExecutives      []HoujinExecutive      `json:"役員"`
+	HoujinExecutiveNames  []string               `json:"役員氏名"`
+	HoujinRepresentatives []string               `json:"代表者氏名"`
+	HoujinBankruptedAt    string                 `json:"破産日"`
+	HoujinDissolvedAt     string                 `json:"解散日"`
+	HoujinContinuedAt     string                 `json:"会社継続日"`
 }
 
 func main() {
@@ -86,13 +92,24 @@ func main() {
 			})
 		}
 
+		stock := h.GetHoujinStock()
+
+		var houjinPreferredStock []HoujinPreferredStock
+		for _, p := range stock.Preferred {
+			houjinPreferredStock = append(houjinPreferredStock, HoujinPreferredStock{
+				Type:   p.Type,
+				Amount: p.Amount,
+			})
+		}
+
 		houjin := &Houjin{
 			ToukiboCreatedAt:      h.GetToukiboCreatedAt(),
 			HoujinName:            h.GetHoujinName(),
 			HoujinKaku:            h.GetHoujinKaku(),
 			HoujinAddress:         h.GetHoujinAddress(),
 			HoujinCapital:         h.GetHoujinCapital(),
-			HoujinStock:           h.GetHoujinStock(),
+			HoujinStock:           stock.Total,
+			HoujinPreferredStock:  houjinPreferredStock,
 			HoujinExecutives:      houjinExecutives,
 			HoujinExecutiveNames:  exectiveNames,
 			HoujinRepresentatives: representativeNames,
