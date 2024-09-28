@@ -44,7 +44,7 @@ type Houjin struct {
 	HoujinAddress         string                 `json:"住所"`
 	HoujinCapital         int                    `json:"資本金"`
 	HoujinStock           int                    `json:"発行済み株式数"`
-	HoujinPreferredStock  []HoujinPreferredStock `json:"発行済み株式の内訳"`
+	HoujinPreferredStock  []HoujinPreferredStock `json:"各種の株式の数"`
 	HoujinExecutives      []HoujinExecutive      `json:"役員"`
 	HoujinExecutiveNames  []string               `json:"役員氏名"`
 	HoujinRepresentatives []string               `json:"代表者氏名"`
