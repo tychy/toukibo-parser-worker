@@ -1,31 +1,14 @@
 package main
 
 import (
-	"bytes"
 	"encoding/json"
 	"io"
 	"net/http"
 	"time"
 
 	"github.com/syumai/workers"
-	"github.com/tychy/toukibo-parser/pdf"
-	"github.com/tychy/toukibo-parser/toukibo"
+	toukibo_parser "github.com/tychy/toukibo-parser"
 )
-
-func readPdf(data []byte) (string, error) {
-	r, err := pdf.NewReader(bytes.NewReader(data), int64(len(data)))
-	if err != nil {
-		return "", err
-	}
-
-	var buf bytes.Buffer
-	b, err := r.GetPlainText()
-	if err != nil {
-		return "", err
-	}
-	buf.ReadFrom(b)
-	return buf.String(), nil
-}
 
 type HoujinExecutive struct {
 	Name     string `json:"氏名"`
@@ -63,11 +46,7 @@ func main() {
 		if err != nil {
 			panic(err)
 		}
-		text, err := readPdf(b)
-		if err != nil {
-			panic(err)
-		}
-		h, err := toukibo.Parse(text)
+		h, err := toukibo_parser.ParseByPDFRawData(b)
 		if err != nil {
 			panic(err)
 		}
