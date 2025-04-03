@@ -1,6 +1,6 @@
-github.com/syumai/workers v0.27.0 h1:Y3J4KtlYveAaXXQYnoE/JjiQzKY0a3/O2GQDHApC55Y=
-github.com/syumai/workers v0.27.0/go.mod h1:ZnqmdiHNBrbxOLrZ/HJ5jzHy6af9cmiNZk10R9NrIEA=
-github.com/tychy/toukibo-parser v1.0.32 h1:gqbGRmgqn/QW0nn4qV0FWbWx0TJqwpoP2hE5mRTNf8I=
-github.com/tychy/toukibo-parser v1.0.32/go.mod h1:4m2kWl6UGW2sIouaR7x6xE1SqQaPCEqv2A52sH86Wfg=
+github.com/syumai/workers v0.28.1 h1:yDIwRwBQUsq/xP5efqTQHmTlZDJiH8jI4Ic/aUL8G0Y=
+github.com/syumai/workers v0.28.1/go.mod h1:ZnqmdiHNBrbxOLrZ/HJ5jzHy6af9cmiNZk10R9NrIEA=
+github.com/tychy/toukibo-parser v1.0.34 h1:QQYXo/0YG/gFck+9isUYGOa3cLvTqn7ikuyZxzNgYZk=
+github.com/tychy/toukibo-parser v1.0.34/go.mod h1:4m2kWl6UGW2sIouaR7x6xE1SqQaPCEqv2A52sH86Wfg=
 gopkg.in/yaml.v3 v3.0.1 h1:fxVm/GzAzEWqLHuvctI91KS9hhNmmWOoWu0XTYJS7CA=
 gopkg.in/yaml.v3 v3.0.1/go.mod h1:K4uyk7z7BCEPqu6E+C64Yfv1cQ7kz7rIZviUmN+EgEM=
